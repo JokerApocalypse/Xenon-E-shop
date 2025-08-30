@@ -12,6 +12,35 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Fonction de validation de l'URI MongoDB
+function validateMongoDBURI(uri) {
+  try {
+    if (!uri) {
+      throw new Error('URI MongoDB non définie');
+    }
+    
+    // Vérifier le format de base de l'URI MongoDB
+    if (!uri.startsWith('mongodb://') && !uri.startsWith('mongodb+srv://')) {
+      throw new Error('URI MongoDB doit commencer par mongodb:// ou mongodb+srv://');
+    }
+    
+    // Vérifier la présence des parties essentielles
+    if (!uri.includes('@')) {
+      throw new Error('URI MongoDB doit contenir des informations d\'authentification');
+    }
+    
+    console.log('✅ URI MongoDB valide');
+    return true;
+  } catch (error) {
+    console.error('❌ Erreur de validation URI MongoDB:', error.message);
+    console.log('💡 Assurez-vous que:');
+    console.log('   - L\'URI commence par mongodb:// ou mongodb+srv://');
+    console.log('   - Le mot de passe est encodé (ex: / devient %2F)');
+    console.log('   - L\'URI contient @ pour l\'authentification');
+    process.exit(1);
+  }
+}
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json({ limit: '10mb' }));
@@ -41,25 +70,56 @@ const upload = multer({
 
 // Connexion MongoDB
 const uri = process.env.MONGODB_URI;
-const client = new MongoClient(uri);
+
+// Valider l'URI avant toute tentative de connexion
+validateMongoDBURI(uri);
+
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 let db;
 
 async function connectToDatabase() {
   try {
+    console.log('🔄 Tentative de connexion à MongoDB Atlas...');
+    console.log('📋 URI utilisée:', uri.replace(/:[^:]*@/, ':****@')); // Masquer le mot de passe dans les logs
+    
     await client.connect();
     db = client.db();
     console.log('✅ Connecté à MongoDB Atlas');
     
     // Créer les index pour optimiser les recherches
-    await db.collection('products').createIndex({ name: 'text', description: 'text' });
-    await db.collection('products').createIndex({ category: 1 });
-    await db.collection('users').createIndex({ email: 1 }, { unique: true });
-    await db.collection('orders').createIndex({ userId: 1 });
+    try {
+      await db.collection('products').createIndex({ name: 'text', description: 'text' });
+      await db.collection('products').createIndex({ category: 1 });
+      await db.collection('users').createIndex({ email: 1 }, { unique: true });
+      await db.collection('orders').createIndex({ userId: 1 });
+      console.log('✅ Index MongoDB créés');
+    } catch (indexError) {
+      console.warn('⚠️ Erreur lors de la création des index:', indexError.message);
+    }
     
-    console.log('✅ Index MongoDB créés');
   } catch (error) {
-    console.error('❌ Erreur de connexion MongoDB:', error);
+    console.error('❌ Erreur de connexion MongoDB:', error.message);
+    
+    // Suggestions de dépannage basées sur l'erreur
+    if (error.message.includes('password')) {
+      console.log('💡 Vérifiez que le mot de passe est correctement encodé:');
+      console.log('   - / devient %2F');
+      console.log('   - ? devient %3F');
+      console.log('   - # devient %23');
+      console.log('   - etc.');
+    }
+    
+    if (error.message.includes('auth')) {
+      console.log('💡 Vérifiez les informations d\'authentification MongoDB:');
+      console.log('   - Nom d\'utilisateur correct');
+      console.log('   - Mot de passe correct');
+      console.log('   - IP autorisée dans Network Access sur MongoDB Atlas');
+    }
+    
     process.exit(1);
   }
 }
@@ -100,11 +160,22 @@ app.get('/api/test', async (req, res) => {
       status: 'OK', 
       message: 'API Boutique Tante fonctionnelle',
       collections: collections.map(c => c.name),
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      nodeVersion: process.version,
+      environment: process.env.NODE_ENV
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+
+// Route de santé pour Render
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK', 
+    message: 'Serveur en fonctionnement',
+    timestamp: new Date().toISOString()
+  });
 });
 
 // Routes des produits
@@ -202,14 +273,15 @@ app.post('/api/register', async (req, res) => {
       role: 'customer',
       createdAt: new Date(),
       address: {},
-      phone: ''
+      phone: '',
+      cart: []
     };
     
     const result = await db.collection('users').insertOne(user);
     
     // Générer le token JWT
     const token = jwt.sign(
-      { userId: result.insertedId, email: user.email, role: user.role },
+      { userId: result.insertedId.toString(), email: user.email, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
@@ -247,7 +319,7 @@ app.post('/api/login', async (req, res) => {
     
     // Générer le token JWT
     const token = jwt.sign(
-      { userId: user._id, email: user.email, role: user.role },
+      { userId: user._id.toString(), email: user.email, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
@@ -400,6 +472,8 @@ async function startServer() {
     console.log(`🚀 Serveur démarré sur le port ${PORT}`);
     console.log(`📍 URL: http://localhost:${PORT}`);
     console.log(`📊 API: http://localhost:${PORT}/api/test`);
+    console.log(`❤️  Health: http://localhost:${PORT}/health`);
+    console.log(`🌍 Environment: ${process.env.NODE_ENV}`);
   });
 }
 
