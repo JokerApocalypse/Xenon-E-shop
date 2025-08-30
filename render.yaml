@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: boutique-tante
+    name: xenon-shop
     env: node
     plan: free
     buildCommand: npm install
