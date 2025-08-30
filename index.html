@@ -3,17 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xenon-Shop - Vente d'Ordinateurs, Vêtements et Articles de Confection</title>
+    <title>XenonShop - Vente d'Ordinateurs, Vêtements et Articles de Confection</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #fd79a8;
+            --accent-color: #00cec9;
+            --dark-color: #2d3436;
+            --light-color: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 80px;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand, .nav-link {
+            color: white !important;
+            font-weight: 600;
+        }
+        
+        .nav-link:hover {
+            color: var(--light-color) !important;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            margin-bottom: 40px;
+            border-radius: 15px;
+        }
+        
+        .category-card {
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .product-card {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            transform: translateY(-2px);
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+        
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 80px;
+        }
+        
+        .badge {
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 20px;
+        }
+        
+        .main-section {
+            display: none;
+        }
+        
+        .main-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .payment-option {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-option:hover, .payment-option.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(108, 92, 231, 0.05);
+        }
+        
+        .feature-box {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
-                <i class="fas fa-store me-2 text-primary"></i>BoutiqueTante
+            <a class="navbar-brand fw-bold" href="#" onclick="showSection('home')">
+                <i class="fas fa-bolt me-2"></i>XenonShop
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -23,18 +197,8 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="#" onclick="showSection('home')">Accueil</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            Catégories
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" onclick="showCategory('ordinateurs')">Ordinateurs</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="showCategory('vetements')">Vêtements</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="showCategory('confection')">Articles de Confection</a></li>
-                        </ul>
-                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="showSection('products')">Tous les produits</a>
+                        <a class="nav-link" href="#" onclick="showSection('products')">Produits</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="showSection('about')">À propos</a>
@@ -46,16 +210,16 @@
                 <div class="d-flex align-items-center">
                     <div class="input-group me-3 d-none d-md-flex">
                         <input type="text" class="form-control form-control-sm" placeholder="Rechercher..." id="searchInput">
-                        <button class="btn btn-outline-primary" onclick="performSearch()">
+                        <button class="btn btn-light" onclick="performSearch()">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
                     <div class="btn-group">
-                        <button class="btn btn-outline-primary position-relative" onclick="showSection('cart')">
+                        <button class="btn btn-light position-relative" onclick="showSection('cart')">
                             <i class="fas fa-shopping-cart"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartCount">0</span>
+                            <span class="cart-badge" id="cartCount">0</span>
                         </button>
-                        <button class="btn btn-outline-primary" onclick="showSection('account')">
+                        <button class="btn btn-light" onclick="showSection('account')">
                             <i class="fas fa-user"></i>
                         </button>
                     </div>
@@ -64,53 +228,50 @@
         </div>
     </nav>
 
-    <!-- Sections principales -->
-    <div class="container-fluid p-0">
-        <!-- Section Accueil -->
-        <section id="home-section" class="main-section">
+    <!-- Section Accueil -->
+    <section id="home-section" class="main-section active">
+        <div class="container">
             <div class="hero-section text-center">
                 <div class="container">
-                    <h1 class="display-4 fw-bold mb-4">Boutique en Ligne de Qualité</h1>
+                    <h1 class="display-4 fw-bold mb-4">Bienvenue sur XenonShop</h1>
                     <p class="lead mb-4">Découvrez nos produits informatiques, vêtements et articles de confection</p>
                     <button class="btn btn-primary btn-lg px-5 py-3" onclick="showSection('products')">
-                        Voir les produits <i class="fas fa-arrow-right ms-2"></i>
+                        Découvrir les produits <i class="fas fa-arrow-right ms-2"></i>
                     </button>
                 </div>
             </div>
 
             <!-- Catégories -->
             <div class="py-5">
-                <div class="container">
-                    <h2 class="text-center mb-5 fw-bold">Catégories Populaires</h2>
-                    <div class="row g-4">
-                        <div class="col-md-4">
-                            <div class="category-card card h-100 text-center" onclick="showCategory('ordinateurs')">
-                                <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Ordinateurs">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ordinateurs</h5>
-                                    <p class="card-text">Des ordinateurs portables et de bureau performants</p>
-                                    <button class="btn btn-outline-primary">Explorer</button>
-                                </div>
+                <h2 class="section-title text-center">Nos Catégories</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="category-card card h-100 text-center" onclick="showCategory('ordinateurs')">
+                            <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Ordinateurs">
+                            <div class="card-body">
+                                <h5 class="card-title">Ordinateurs</h5>
+                                <p class="card-text">Des ordinateurs portables et de bureau performants</p>
+                                <button class="btn btn-outline-primary">Explorer</button>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="category-card card h-100 text-center" onclick="showCategory('vetements')">
-                                <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Vêtements">
-                                <div class="card-body">
-                                    <h5 class="card-title">Vêtements</h5>
-                                    <p class="card-text">Des vêtements tendance pour toute la famille</p>
-                                    <button class="btn btn-outline-primary">Explorer</button>
-                                </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="category-card card h-100 text-center" onclick="showCategory('vetements')">
+                            <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Vêtements">
+                            <div class="card-body">
+                                <h5 class="card-title">Vêtements</h5>
+                                <p class="card-text">Des vêtements tendance pour toute la famille</p>
+                                <button class="btn btn-outline-primary">Explorer</button>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="category-card card h-100 text-center" onclick="showCategory('confection')">
-                                <img src="https://images.unsplash.com/photo-1506629905877-52a5ca6d63b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Confection">
-                                <div class="card-body">
-                                    <h5 class="card-title">Articles de Confection</h5>
-                                    <p class="card-text">Matériel et fournitures pour vos créations</p>
-                                    <button class="btn btn-outline-primary">Explorer</button>
-                                </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="category-card card h-100 text-center" onclick="showCategory('confection')">
+                            <img src="https://images.unsplash.com/photo-1506629905877-52a5ca6d63b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Confection">
+                            <div class="card-body">
+                                <h5 class="card-title">Articles de Confection</h5>
+                                <p class="card-text">Matériel et fournitures pour vos créations</p>
+                                <button class="btn btn-outline-primary">Explorer</button>
                             </div>
                         </div>
                     </div>
@@ -120,503 +281,559 @@
             <!-- Produits populaires -->
             <div class="py-5 bg-light">
                 <div class="container">
-                    <h2 class="section-title fw-bold">Produits Populaires</h2>
+                    <h2 class="section-title">Produits Populaires</h2>
                     <div class="row g-4" id="featured-products">
                         <!-- Les produits seront chargés ici -->
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Section Produits -->
-        <section id="products-section" class="main-section d-none">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col-md-3">
-                        <!-- Filtres -->
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <h5>Filtres</h5>
+            <!-- Services -->
+            <div class="py-5">
+                <h2 class="section-title text-center">Pourquoi choisir XenonShop ?</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-truck"></i>
                             </div>
-                            <div class="card-body">
-                                <h6>Catégories</h6>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="ordinateurs" id="filter-computers">
-                                    <label class="form-check-label" for="filter-computers">Ordinateurs</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="vetements" id="filter-clothes">
-                                    <label class="form-check-label" for="filter-clothes">Vêtements</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="confection" id="filter-sewing">
-                                    <label class="form-check-label" for="filter-sewing">Confection</label>
-                                </div>
-                                
-                                <h6 class="mt-3">Prix</h6>
-                                <input type="range" class="form-range" min="0" max="1000000" step="10000" id="priceRange">
-                                <div class="d-flex justify-content-between">
-                                    <span>0 FCFA</span>
-                                    <span id="priceValue">500000 FCFA</span>
-                                </div>
-                                
-                                <button class="btn btn-primary w-100 mt-3" onclick="applyFilters()">Appliquer</button>
-                            </div>
+                            <h4>Livraison Rapide</h4>
+                            <p class="text-muted">Livraison express partout en Côte d'Ivoire sous 24-48h</p>
                         </div>
                     </div>
-                    <div class="col-md-9">
-                        <!-- Produits -->
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h3>Tous les produits</h3>
-                            <div class="btn-group">
-                                <button class="btn btn-outline-primary" onclick="sortProducts('name')">
-                                    <i class="fas fa-sort-alpha-down"></i> Nom
-                                </button>
-                                <button class="btn btn-outline-primary" onclick="sortProducts('price')">
-                                    <i class="fas fa-sort-numeric-down"></i> Prix
-                                </button>
+                    <div class="col-md-4">
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
                             </div>
+                            <h4>Paiement Sécurisé</h4>
+                            <p class="text-muted">Paiement par Mobile Money, carte bancaire ou à la livraison</p>
                         </div>
-                        <div class="row g-4" id="products-grid">
-                            <!-- Les produits seront chargés ici -->
-                        </div>
-                        <nav aria-label="Page navigation" class="mt-4">
-                            <ul class="pagination justify-content-center" id="pagination">
-                                <!-- Pagination sera générée ici -->
-                            </ul>
-                        </nav>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section Panier -->
-        <section id="cart-section" class="main-section d-none">
-            <div class="container py-5">
-                <h2 class="mb-4">Votre Panier</h2>
-                <div id="cart-empty" class="text-center py-5">
-                    <i class="fas fa-shopping-cart fa-4x text-muted mb-3"></i>
-                    <h4>Votre panier est vide</h4>
-                    <p>Ajoutez des produits pour commencer vos achats</p>
-                    <button class="btn btn-primary" onclick="showSection('products')">Voir les produits</button>
-                </div>
-                <div id="cart-content" class="d-none">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div id="cart-items">
-                                        <!-- Articles du panier -->
-                                    </div>
-                                </div>
+                    <div class="col-md-4">
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-undo"></i>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Récapitulatif</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <span>Sous-total:</span>
-                                        <span id="cart-subtotal">0 FCFA</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <span>Livraison:</span>
-                                        <span id="cart-shipping">5000 FCFA</span>
-                                    </div>
-                                    <hr>
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <strong>Total:</strong>
-                                        <strong id="cart-total">5000 FCFA</strong>
-                                    </div>
-                                    <button class="btn btn-primary w-100" onclick="showSection('checkout')">
-                                        Commander maintenant
-                                    </button>
-                                </div>
-                            </div>
+                            <h4>Retours Gratuits</h4>
+                            <p class="text-muted">14 jours pour changer d'avis et retourner vos articles</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Section Checkout/Paiement -->
-        <section id="checkout-section" class="main-section d-none">
-            <div class="container py-5">
-                <h2 class="mb-4">Finaliser votre commande</h2>
+    <!-- Section Produits -->
+    <section id="products-section" class="main-section">
+        <div class="container py-5">
+            <h2 class="section-title">Tous nos produits</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <!-- Filtres -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Filtres</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Catégories</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="ordinateurs" id="filter-computers" checked>
+                                <label class="form-check-label" for="filter-computers">Ordinateurs</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="vetements" id="filter-clothes" checked>
+                                <label class="form-check-label" for="filter-clothes">Vêtements</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="confection" id="filter-sewing" checked>
+                                <label class="form-check-label" for="filter-sewing">Confection</label>
+                            </div>
+                            
+                            <h6 class="mt-4">Prix (FCFA)</h6>
+                            <input type="range" class="form-range" min="0" max="1000000" step="10000" id="priceRange">
+                            <div class="d-flex justify-content-between">
+                                <span>0 FCFA</span>
+                                <span id="priceValue">500000 FCFA</span>
+                            </div>
+                            
+                            <button class="btn btn-primary w-100 mt-3" onclick="applyFilters()">Appliquer les filtres</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <!-- Barre de recherche mobile -->
+                    <div class="d-flex d-md-none mb-4">
+                        <input type="text" class="form-control me-2" placeholder="Rechercher..." id="mobileSearchInput">
+                        <button class="btn btn-primary" onclick="performMobileSearch()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+
+                    <!-- Produits -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="mb-0">Nos produits</h4>
+                        <div class="btn-group">
+                            <button class="btn btn-outline-primary" onclick="sortProducts('name')">
+                                <i class="fas fa-sort-alpha-down"></i> Nom
+                            </button>
+                            <button class="btn btn-outline-primary" onclick="sortProducts('price')">
+                                <i class="fas fa-sort-numeric-down"></i> Prix
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row g-4" id="products-grid">
+                        <!-- Les produits seront chargés ici -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Panier -->
+    <section id="cart-section" class="main-section">
+        <div class="container py-5">
+            <h2 class="section-title">Votre Panier</h2>
+            <div id="cart-empty" class="text-center py-5">
+                <i class="fas fa-shopping-cart fa-4x text-muted mb-3"></i>
+                <h4>Votre panier est vide</h4>
+                <p>Ajoutez des produits pour commencer vos achats</p>
+                <button class="btn btn-primary" onclick="showSection('products')">Voir les produits</button>
+            </div>
+            <div id="cart-content" class="d-none">
                 <div class="row">
                     <div class="col-md-8">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <h5>Informations de livraison</h5>
-                            </div>
-                            <div class="card-body">
-                                <form id="delivery-form">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Prénom</label>
-                                                <input type="text" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Nom</label>
-                                                <input type="text" class="form-control" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" class="form-control" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Téléphone</label>
-                                        <input type="tel" class="form-control" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Adresse</label>
-                                        <textarea class="form-control" rows="3" required></textarea>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Ville</label>
-                                                <input type="text" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Code postal</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
                         <div class="card">
-                            <div class="card-header">
-                                <h5>Méthode de paiement</h5>
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">Articles dans votre panier</h5>
                             </div>
                             <div class="card-body">
-                                <div class="payment-methods">
-                                    <div class="form-check mb-3">
-                                        <input class="form-check-input" type="radio" name="paymentMethod" value="orange" id="payment-orange" checked>
-                                        <label class="form-check-label" for="payment-orange">
-                                            <i class="fas fa-mobile-alt text-warning me-2"></i> Orange Money
-                                        </label>
-                                    </div>
-                                    <div class="form-check mb-3">
-                                        <input class="form-check-input" type="radio" name="paymentMethod" value="mtn" id="payment-mtn">
-                                        <label class="form-check-label" for="payment-mtn">
-                                            <i class="fas fa-mobile-alt text-yellow me-2"></i> MTN Mobile Money
-                                        </label>
-                                    </div>
-                                    <div class="form-check mb-3">
-                                        <input class="form-check-input" type="radio" name="paymentMethod" value="card" id="payment-card">
-                                        <label class="form-check-label" for="payment-card">
-                                            <i class="fas fa-credit-card text-primary me-2"></i> Carte bancaire
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="paymentMethod" value="cash" id="payment-cash">
-                                        <label class="form-check-label" for="payment-cash">
-                                            <i class="fas fa-money-bill-wave text-success me-2"></i> Paiement à la livraison
-                                        </label>
-                                    </div>
+                                <div id="cart-items">
+                                    <!-- Articles du panier -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card">
-                            <div class="card-header">
-                                <h5>Votre commande</h5>
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">Récapitulatif</h5>
                             </div>
                             <div class="card-body">
-                                <div id="checkout-summary">
-                                    <!-- Récapitulatif de la commande -->
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Sous-total:</span>
+                                    <span id="cart-subtotal">0 FCFA</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Livraison:</span>
+                                    <span id="cart-shipping">5 000 FCFA</span>
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between mb-3">
                                     <strong>Total:</strong>
-                                    <strong id="checkout-total">0 FCFA</strong>
+                                    <strong id="cart-total">5 000 FCFA</strong>
                                 </div>
-                                <button class="btn btn-primary w-100" onclick="processPayment()">
-                                    Payer maintenant
+                                <button class="btn btn-primary w-100" onclick="showSection('checkout')">
+                                    <i class="fas fa-check-circle me-2"></i>Commander maintenant
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Section Compte Utilisateur -->
-        <section id="account-section" class="main-section d-none">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body text-center">
-                                <div class="avatar mb-3">
-                                    <i class="fas fa-user-circle fa-4x text-primary"></i>
+    <!-- Section Checkout/Paiement -->
+    <section id="checkout-section" class="main-section">
+        <div class="container py-5">
+            <h2 class="section-title">Finaliser votre commande</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Informations de livraison</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="delivery-form">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Prénom *</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Nom *</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
                                 </div>
-                                <h4 id="user-name">Invité</h4>
-                                <p id="user-email" class="text-muted">Non connecté</p>
-                                <div class="d-grid gap-2">
-                                    <button class="btn btn-outline-primary" onclick="showLoginForm()" id="login-btn">
-                                        <i class="fas fa-sign-in-alt me-2"></i>Se connecter
-                                    </button>
-                                    <button class="btn btn-outline-secondary" onclick="showRegisterForm()" id="register-btn">
-                                        <i class="fas fa-user-plus me-2"></i>Créer un compte
-                                    </button>
-                                    <button class="btn btn-outline-danger d-none" onclick="logout()" id="logout-btn">
-                                        <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
-                                    </button>
+                                <div class="mb-3">
+                                    <label class="form-label">Email *</label>
+                                    <input type="email" class="form-control" required>
                                 </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Téléphone *</label>
+                                    <input type="tel" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Adresse *</label>
+                                    <textarea class="form-control" rows="3" required></textarea>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Ville *</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Code postal</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Méthode de paiement</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="payment-option selected" onclick="selectPayment('orange')">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="paymentMethod" value="orange" id="payment-orange" checked>
+                                    <label class="form-check-label" for="payment-orange">
+                                        <i class="fas fa-mobile-alt text-warning me-2"></i> Orange Money
+                                    </label>
+                                </div>
+                                <small class="text-muted">Paiement sécurisé via Orange Money</small>
+                            </div>
+                            <div class="payment-option" onclick="selectPayment('mtn')">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="paymentMethod" value="mtn" id="payment-mtn">
+                                    <label class="form-check-label" for="payment-mtn">
+                                        <i class="fas fa-mobile-alt text-yellow me-2"></i> MTN Mobile Money
+                                    </label>
+                                </div>
+                                <small class="text-muted">Paiement sécurisé via MTN Mobile Money</small>
+                            </div>
+                            <div class="payment-option" onclick="selectPayment('card')">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="paymentMethod" value="card" id="payment-card">
+                                    <label class="form-check-label" for="payment-card">
+                                        <i class="fas fa-credit-card text-primary me-2"></i> Carte bancaire
+                                    </label>
+                                </div>
+                                <small class="text-muted">Paiement par carte Visa/Mastercard</small>
+                            </div>
+                            <div class="payment-option" onclick="selectPayment('cash')">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="paymentMethod" value="cash" id="payment-cash">
+                                    <label class="form-check-label" for="payment-cash">
+                                        <i class="fas fa-money-bill-wave text-success me-2"></i> Paiement à la livraison
+                                    </label>
+                                </div>
+                                <small class="text-muted">Payez lorsque vous recevez votre commande</small>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8">
-                        <!-- Formulaire de connexion -->
-                        <div class="card mb-4" id="login-form">
-                            <div class="card-header">
-                                <h5>Connexion</h5>
+                </div>
+                <div class="col-md-4">
+                    <div class="card sticky-top" style="top: 100px;">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Récapitulatif de commande</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="checkout-summary">
+                                <!-- Récapitulatif de la commande -->
                             </div>
-                            <div class="card-body">
-                                <form id="loginForm">
-                                    <div class="mb-3">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" class="form-control" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Mot de passe</label>
-                                        <input type="password" class="form-control" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary w-100">
-                                        <i class="fas fa-sign-in-alt me-2"></i>Se connecter
-                                    </button>
-                                </form>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-3">
+                                <strong>Total:</strong>
+                                <strong id="checkout-total">0 FCFA</strong>
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="processPayment()">
+                                <i class="fas fa-lock me-2"></i>Payer maintenant
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Compte Utilisateur -->
+    <section id="account-section" class="main-section">
+        <div class="container py-5">
+            <h2 class="section-title">Mon Compte</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="avatar mb-3">
+                                <i class="fas fa-user-circle fa-4x text-primary"></i>
+                            </div>
+                            <h4 id="user-name">Invité</h4>
+                            <p id="user-email" class="text-muted">Non connecté</p>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary" onclick="showLoginForm()" id="login-btn">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Se connecter
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="showRegisterForm()" id="register-btn">
+                                    <i class="fas fa-user-plus me-2"></i>Créer un compte
+                                </button>
+                                <button class="btn btn-outline-danger d-none" onclick="logout()" id="logout-btn">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+                                </button>
                             </div>
                         </div>
-
-                        <!-- Formulaire d'inscription -->
-                        <div class="card mb-4 d-none" id="register-form">
-                            <div class="card-header">
-                                <h5>Créer un compte</h5>
-                            </div>
-                            <div class="card-body">
-                                <form id="registerForm">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Prénom</label>
-                                                <input type="text" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Nom</label>
-                                                <input type="text" class="form-control" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" class="form-control" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Mot de passe</label>
-                                        <input type="password" class="form-control" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Confirmer le mot de passe</label>
-                                        <input type="password" class="form-control" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary w-100">
-                                        <i class="fas fa-user-plus me-2"></i>Créer le compte
-                                    </button>
-                                </form>
-                            </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <!-- Formulaire de connexion -->
+                    <div class="card mb-4" id="login-form">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Connexion</h5>
                         </div>
-
-                        <!-- Profil utilisateur -->
-                        <div class="card d-none" id="user-profile">
-                            <div class="card-header">
-                                <h5>Mon profil</h5>
-                            </div>
-                            <div class="card-body">
-                                <form id="profileForm">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Prénom</label>
-                                                <input type="text" class="form-control" id="profile-firstname">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Nom</label>
-                                                <input type="text" class="form-control" id="profile-lastname">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="profile-email" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Téléphone</label>
-                                        <input type="tel" class="form-control" id="profile-phone">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Adresse</label>
-                                        <textarea class="form-control" id="profile-address" rows="3"></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-save me-2"></i>Enregistrer
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-
-                        <!-- Commandes de l'utilisateur -->
-                        <div class="card mt-4 d-none" id="user-orders">
-                            <div class="card-header">
-                                <h5>Mes commandes</h5>
-                            </div>
-                            <div class="card-body">
-                                <div id="orders-list">
-                                    <p class="text-muted">Aucune commande pour le moment</p>
+                        <div class="card-body">
+                            <form id="loginForm">
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" required>
                                 </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Mot de passe</label>
+                                    <input type="password" class="form-control" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Se connecter
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Formulaire d'inscription -->
+                    <div class="card mb-4 d-none" id="register-form">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Créer un compte</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="registerForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Prénom *</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Nom *</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email *</label>
+                                    <input type="email" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Mot de passe *</label>
+                                    <input type="password" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Confirmer le mot de passe *</label>
+                                    <input type="password" class="form-control" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-user-plus me-2"></i>Créer le compte
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Profil utilisateur -->
+                    <div class="card d-none" id="user-profile">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Mon profil</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="profileForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Prénom</label>
+                                            <input type="text" class="form-control" id="profile-firstname">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Nom</label>
+                                            <input type="text" class="form-control" id="profile-lastname">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="profile-email" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Téléphone</label>
+                                    <input type="tel" class="form-control" id="profile-phone">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Adresse</label>
+                                    <textarea class="form-control" id="profile-address" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-2"></i>Enregistrer
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Commandes de l'utilisateur -->
+                    <div class="card mt-4 d-none" id="user-orders">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Mes commandes</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="orders-list">
+                                <p class="text-muted">Aucune commande pour le moment</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Section Contact -->
-        <section id="contact-section" class="main-section d-none">
-            <div class="container py-5">
-                <h2 class="text-center mb-5">Contactez-nous</h2>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Informations de contact</h5>
-                                <div class="contact-info">
-                                    <div class="d-flex align-items-center mb-3">
-                                        <i class="fas fa-map-marker-alt text-primary me-3"></i>
-                                        <span>Abidjan, Plateau, Côte d'Ivoire</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mb-3">
-                                        <i class="fas fa-phone text-primary me-3"></i>
-                                        <span>+225 07 07 07 07 07</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mb-3">
-                                        <i class="fas fa-envelope text-primary me-3"></i>
-                                        <span>contact@boutiquetante.ci</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mb-3">
-                                        <i class="fas fa-clock text-primary me-3"></i>
-                                        <span>Lun-Sam: 8h-19h</span>
-                                    </div>
+    <!-- Section Contact -->
+    <section id="contact-section" class="main-section">
+        <div class="container py-5">
+            <h2 class="section-title text-center">Contactez-nous</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Informations de contact</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="contact-info">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fas fa-map-marker-alt text-primary me-3 fa-lg"></i>
+                                    <span>Abidjan, Plateau, Côte d'Ivoire</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fas fa-phone text-primary me-3 fa-lg"></i>
+                                    <span>+225 07 07 26 68 96</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fas fa-envelope text-primary me-3 fa-lg"></i>
+                                    <span>sonialiebeconfection@gmail.com</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fas fa-clock text-primary me-3 fa-lg"></i>
+                                    <span>Lun-Sam: 8h-19h</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Envoyez-nous un message</h5>
-                                <form id="contactForm">
-                                    <div class="mb-3">
-                                        <label class="form-label">Nom complet</label>
-                                        <input type="text" class="form-control" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" class="form-control" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Sujet</label>
-                                        <input type="text" class="form-control" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Message</label>
-                                        <textarea class="form-control" rows="5" required></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary w-100">
-                                        <i class="fas fa-paper-plane me-2"></i>Envoyer
-                                    </button>
-                                </form>
-                            </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Envoyez-nous un message</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="contactForm">
+                                <div class="mb-3">
+                                    <label class="form-label">Nom complet *</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email *</label>
+                                    <input type="email" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Sujet *</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Message *</label>
+                                    <textarea class="form-control" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-paper-plane me-2"></i>Envoyer le message
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Section À propos -->
-        <section id="about-section" class="main-section d-none">
-            <div class="container py-5">
-                <h2 class="text-center mb-5">À propos de BoutiqueTante</h2>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4>Notre histoire</h4>
-                        <p>BoutiqueTante est née de la passion pour offrir des produits de qualité à des prix accessibles. Spécialisée dans les ordinateurs, vêtements et articles de confection, notre boutique s'engage à vous offrir le meilleur service.</p>
-                        <h4 class="mt-4">Notre mission</h4>
-                        <p>Proposer des produits de qualité avec un service client exceptionnel. Nous croyons que chaque client mérite la meilleure expérience d'achat possible.</p>
-                    </div>
-                    <div class="col-md-6">
-                        <h4>Nos valeurs</h4>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <i class="fas fa-check-circle text-success me-2"></i> Qualité des produits
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-check-circle text-success me-2"></i> Service client exceptionnel
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-check-circle text-success me-2"></i> Prix compétitifs
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-check-circle text-success me-2"></i> Livraison rapide
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-check-circle text-success me-2"></i> Satisfaction garantie
-                            </li>
-                        </ul>
-                    </div>
+    <!-- Section À propos -->
+    <section id="about-section" class="main-section">
+        <div class="container py-5">
+            <h2 class="section-title text-center">À propos de XenonShop</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Notre histoire</h4>
+                    <p>XenonShop est née de la passion pour offrir des produits de qualité à des prix accessibles. Spécialisée dans les ordinateurs, vêtements et articles de confection, notre boutique s'engage à vous offrir le meilleur service.</p>
+                    <h4 class="mt-4">Notre mission</h4>
+                    <p>Proposer des produits de qualité avec un service client exceptionnel. Nous croyons que chaque client mérite la meilleure expérience d'achat possible.</p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Nos valeurs</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success me-2"></i> Qualité des produits
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success me-2"></i> Service client exceptionnel
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success me-2"></i> Prix compétitifs
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success me-2"></i> Livraison rapide
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success me-2"></i> Satisfaction garantie
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="bg-dark text-white py-5 mt-5">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h5>BoutiqueTante</h5>
+                    <h5><i class="fas fa-bolt me-2"></i>XenonShop</h5>
                     <p>Votre boutique en ligne de confiance pour tous vos besoins.</p>
                     <div class="social-links">
-                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-whatsapp fa-lg"></i></a>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <h6>Informations</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">À propos</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+                        <li><a href="#" class="text-white text-decoration-none" onclick="showSection('about')">À propos</a></li>
+                        <li><a href="#" class="text-white text-decoration-none" onclick="showSection('contact')">Contact</a></li>
                         <li><a href="#" class="text-white text-decoration-none">Mentions légales</a></li>
                     </ul>
                 </div>
@@ -639,7 +856,7 @@
             </div>
             <hr>
             <div class="text-center">
-                <p>&copy; 2023 BoutiqueTante. Tous droits réservés.</p>
+                <p>&copy; 2023 XenonShop. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
@@ -655,7 +872,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="" class="img-fluid" id="productModalImage" alt="">
+                            <img src="" class="img-fluid rounded" id="productModalImage" alt="">
                         </div>
                         <div class="col-md-6">
                             <h3 id="productModalName"></h3>
@@ -681,6 +898,582 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="scripts/main.js"></script>
+    <script>
+        // Données des produits
+        const products = [
+            {
+                id: 1,
+                name: "Ordinateur Portable HP EliteBook",
+                description: "Ordinateur portable 15.6\", 8GB RAM, 512GB SSD, Intel Core i5, idéal pour le travail et les études.",
+                price: 450000,
+                category: "ordinateurs",
+                image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                featured: true,
+                stock: 10
+            },
+            {
+                id: 2,
+                name: "Veste en Cuir Premium",
+                description: "Veste en cuir véritable pour homme, style motard, confortable et élégante pour toutes occasions.",
+                price: 85000,
+                category: "vetements",
+                image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                featured: true,
+                stock: 15
+            },
+            {
+                id: 3,
+                name: "Machine à Coudre Professionnelle",
+                description: "Machine à coudre avec 32 points programmés, idéale pour la confection et les travaux de couture.",
+                price: 120000,
+                category: "confection",
+                image: "https://images.unsplash.com/photo-1506629905877-52a5ca6d63b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                featured: false,
+                stock: 8
+            },
+            {
+                id: 4,
+                name: "Robe Élégante Soirée",
+                description: "Robe longue élégante pour occasions spéciales, disponible en plusieurs coloris et tailles.",
+                price: 65000,
+                category: "vetements",
+                image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                featured: true,
+                stock: 12
+            },
+            {
+                id: 5,
+                name: "PC Gamer Performance",
+                description: "PC Gamer haute performance avec carte graphique dédiée, processeur rapide et SSD ultra-rapide.",
+                price: 750000,
+                category: "ordinateurs",
+                image: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                featured: false,
+                stock: 5
+            },
+            {
+                id: 6,
+                name: "Tissu Premium pour Confection",
+                description: "Tissu de haute qualité pour la confection de vêtements, disponible en plusieurs motifs et couleurs.",
+                price: 15000,
+                category: "confection",
+                image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                featured: true,
+                stock: 20
+            }
+        ];
+
+        // Données utilisateur et panier
+        let currentUser = null;
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let currentProduct = null;
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+            updateCartCount();
+            checkLoginStatus();
+        });
+
+        // Fonctions d'affichage
+        function showSection(sectionId) {
+            document.querySelectorAll('.main-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId + '-section').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function showCategory(category) {
+            showSection('products');
+            // Filtrer les produits par catégorie
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = (checkbox.value === category);
+            });
+            applyFilters();
+        }
+
+        // Fonctions produits
+        function loadProducts() {
+            loadFeaturedProducts();
+            loadAllProducts();
+        }
+
+        function loadFeaturedProducts() {
+            const featuredContainer = document.getElementById('featured-products');
+            const featuredProducts = products.filter(p => p.featured);
+            
+            featuredContainer.innerHTML = '';
+            featuredProducts.forEach(product => {
+                featuredContainer.innerHTML += `
+                    <div class="col-lg-3 col-md-6">
+                        <div class="product-card card h-100">
+                            ${product.featured ? '<span class="badge bg-danger position-absolute m-2">Populaire</span>' : ''}
+                            <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                            <div class="card-body">
+                                <h5 class="card-title">${product.name}</h5>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-primary fw-bold fs-5">${formatPrice(product.price)}</span>
+                                </div>
+                                <p class="card-text">${product.description.substring(0, 60)}...</p>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <button class="btn btn-primary w-100" onclick="showProductDetail(${product.id})">Voir details</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function loadAllProducts() {
+            const productsContainer = document.getElementById('products-grid');
+            productsContainer.innerHTML = '';
+            
+            products.forEach(product => {
+                productsContainer.innerHTML += `
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-card card h-100">
+                            <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                            <div class="card-body">
+                                <h5 class="card-title">${product.name}</h5>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-primary fw-bold fs-5">${formatPrice(product.price)}</span>
+                                </div>
+                                <p class="card-text">${product.description.substring(0, 80)}...</p>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <button class="btn btn-primary w-100" onclick="addToCart(${product.id})">
+                                    <i class="fas fa-cart-plus me-2"></i>Ajouter au panier
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function showProductDetail(productId) {
+            const product = products.find(p => p.id === productId);
+            currentProduct = product;
+            
+            document.getElementById('productModalTitle').textContent = product.name;
+            document.getElementById('productModalName').textContent = product.name;
+            document.getElementById('productModalCategory').textContent = `Catégorie: ${product.category}`;
+            document.getElementById('productModalPrice').textContent = formatPrice(product.price);
+            document.getElementById('productModalDescription').textContent = product.description;
+            document.getElementById('productModalImage').src = product.image;
+            document.getElementById('productQuantity').value = 1;
+            
+            const modal = new bootstrap.Modal(document.getElementById('productModal'));
+            modal.show();
+        }
+
+        // Fonctions panier
+        function addToCart(productId, quantity = 1) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: quantity
+                });
+            }
+            
+            updateCart();
+            alert(`${product.name} a été ajouté au panier !`);
+        }
+
+        function addToCartFromModal() {
+            const quantity = parseInt(document.getElementById('productQuantity').value);
+            addToCart(currentProduct.id, quantity);
+            bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();
+        }
+
+        function updateCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            updateCartDisplay();
+        }
+
+        function updateCartCount() {
+            const cartCount = document.getElementById('cartCount');
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+
+        function updateCartDisplay() {
+            const cartEmpty = document.getElementById('cart-empty');
+            const cartContent = document.getElementById('cart-content');
+            const cartItems = document.getElementById('cart-items');
+            const cartSubtotal = document.getElementById('cart-subtotal');
+            const cartTotal = document.getElementById('cart-total');
+            
+            if (cart.length === 0) {
+                cartEmpty.classList.remove('d-none');
+                cartContent.classList.add('d-none');
+                return;
+            }
+            
+            cartEmpty.classList.add('d-none');
+            cartContent.classList.remove('d-none');
+            
+            // Afficher les articles du panier
+            cartItems.innerHTML = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                cartItems.innerHTML += `
+                    <div class="cart-item d-flex align-items-center mb-3 p-3 border rounded">
+                        <img src="${item.image}" alt="${item.name}" class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">${item.name}</h6>
+                            <p class="mb-1 text-primary">${formatPrice(item.price)}</p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="input-group me-3" style="width: 120px;">
+                                <button class="btn btn-outline-secondary" type="button" onclick="updateCartItemQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                                <input type="number" class="form-control text-center" value="${item.quantity}" min="1" readonly>
+                                <button class="btn btn-outline-secondary" type="button" onclick="updateCartItemQuantity(${item.id}, ${item.quantity + 1})">+</button>
+                            </div>
+                            <span class="fw-bold me-3">${formatPrice(itemTotal)}</span>
+                            <button class="btn btn-danger btn-sm" onclick="removeFromCart(${item.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            const shipping = 5000;
+            const total = subtotal + shipping;
+            
+            cartSubtotal.textContent = formatPrice(subtotal);
+            cartTotal.textContent = formatPrice(total);
+        }
+
+        function updateCartItemQuantity(productId, newQuantity) {
+            if (newQuantity < 1) return;
+            
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity = newQuantity;
+                updateCart();
+            }
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        function increaseQuantity() {
+            const quantityInput = document.getElementById('productQuantity');
+            quantityInput.value = parseInt(quantityInput.value) + 1;
+        }
+
+        function decreaseQuantity() {
+            const quantityInput = document.getElementById('productQuantity');
+            if (parseInt(quantityInput.value) > 1) {
+                quantityInput.value = parseInt(quantityInput.value) - 1;
+            }
+        }
+
+        // Fonctions de paiement
+        function selectPayment(method) {
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector(`.payment-option:nth-child(${method === 'orange' ? 1 : method === 'mtn' ? 2 : method === 'card' ? 3 : 4})`).classList.add('selected');
+            document.getElementById(`payment-${method}`).checked = true;
+        }
+
+        function processPayment() {
+            alert('Paiement traité avec succès! Merci pour votre commande.');
+            cart = [];
+            updateCart();
+            showSection('home');
+        }
+
+        // Fonctions utilisateur
+        function showLoginForm() {
+            document.getElementById('login-form').classList.remove('d-none');
+            document.getElementById('register-form').classList.add('d-none');
+            document.getElementById('user-profile').classList.add('d-none');
+            document.getElementById('user-orders').classList.add('d-none');
+        }
+
+        function showRegisterForm() {
+            document.getElementById('login-form').classList.add('d-none');
+            document.getElementById('register-form').classList.remove('d-none');
+            document.getElementById('user-profile').classList.add('d-none');
+            document.getElementById('user-orders').classList.add('d-none');
+        }
+
+        function checkLoginStatus() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (user) {
+                currentUser = user;
+                document.getElementById('user-name').textContent = user.name;
+                document.getElementById('user-email').textContent = user.email;
+                document.getElementById('login-btn').classList.add('d-none');
+                document.getElementById('register-btn').classList.add('d-none');
+                document.getElementById('logout-btn').classList.remove('d-none');
+                document.getElementById('user-profile').classList.remove('d-none');
+                document.getElementById('user-orders').classList.remove('d-none');
+                document.getElementById('login-form').classList.add('d-none');
+                document.getElementById('register-form').classList.add('d-none');
+                
+                // Remplir le profil
+                document.getElementById('profile-firstname').value = user.name.split(' ')[0] || '';
+                document.getElementById('profile-lastname').value = user.name.split(' ')[1] || '';
+                document.getElementById('profile-email').value = user.email;
+                document.getElementById('profile-phone').value = user.phone || '';
+                document.getElementById('profile-address').value = user.address || '';
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            document.getElementById('user-name').textContent = 'Invité';
+            document.getElementById('user-email').textContent = 'Non connecté';
+            document.getElementById('login-btn').classList.remove('d-none');
+            document.getElementById('register-btn').classList.remove('d-none');
+            document.getElementById('logout-btn').classList.add('d-none');
+            document.getElementById('user-profile').classList.add('d-none');
+            document.getElementById('user-orders').classList.add('d-none');
+            showLoginForm();
+        }
+
+        // Événements de formulaire
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            const password = this.querySelector('input[type="password"]').value;
+            
+            // Simuler une connexion
+            const user = {
+                name: "Utilisateur Test",
+                email: email,
+                phone: "+225 07 07 26 68 96",
+                address: "Abidjan, Plateau"
+            };
+            
+            currentUser = user;
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            checkLoginStatus();
+            alert('Connexion réussie!');
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = this.querySelector('input[type="text"]').value + ' ' + this.querySelectorAll('input[type="text"]')[1].value;
+            const email = this.querySelector('input[type="email"]').value;
+            
+            // Simuler une inscription
+            const user = {
+                name: name,
+                email: email,
+                phone: "",
+                address: ""
+            };
+            
+            currentUser = user;
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            checkLoginStatus();
+            alert('Compte créé avec succès!');
+        });
+
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Profil mis à jour avec succès!');
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Message envoyé avec succès! Nous vous répondrons rapidement.');
+            this.reset();
+        });
+
+        // Utilitaires
+        function formatPrice(price) {
+            return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'XOF' }).format(price);
+        }
+
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm) {
+                showSection('products');
+                const filteredProducts = products.filter(product => 
+                    product.name.toLowerCase().includes(searchTerm) || 
+                    product.description.toLowerCase().includes(searchTerm)
+                );
+                // Afficher les résultats de recherche
+                const productsContainer = document.getElementById('products-grid');
+                productsContainer.innerHTML = '';
+                
+                if (filteredProducts.length === 0) {
+                    productsContainer.innerHTML = '<div class="col-12 text-center py-5"><h4>Aucun produit trouvé</h4></div>';
+                    return;
+                }
+                
+                filteredProducts.forEach(product => {
+                    productsContainer.innerHTML += `
+                        <div class="col-lg-4 col-md-6">
+                            <div class="product-card card h-100">
+                                <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${product.name}</h5>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="text-primary fw-bold fs-5">${formatPrice(product.price)}</span>
+                                    </div>
+                                    <p class="card-text">${product.description.substring(0, 80)}...</p>
+                                </div>
+                                <div class="card-footer bg-white border-0">
+                                    <button class="btn btn-primary w-100" onclick="addToCart(${product.id})">
+                                        <i class="fas fa-cart-plus me-2"></i>Ajouter au panier
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function performMobileSearch() {
+            const searchTerm = document.getElementById('mobileSearchInput').value.toLowerCase();
+            if (searchTerm) {
+                showSection('products');
+                const filteredProducts = products.filter(product => 
+                    product.name.toLowerCase().includes(searchTerm) || 
+                    product.description.toLowerCase().includes(searchTerm)
+                );
+                // Afficher les résultats de recherche
+                const productsContainer = document.getElementById('products-grid');
+                productsContainer.innerHTML = '';
+                
+                if (filteredProducts.length === 0) {
+                    productsContainer.innerHTML = '<div class="col-12 text-center py-5"><h4>Aucun produit trouvé</h4></div>';
+                    return;
+                }
+                
+                filteredProducts.forEach(product => {
+                    productsContainer.innerHTML += `
+                        <div class="col-lg-4 col-md-6">
+                            <div class="product-card card h-100">
+                                <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${product.name}</h5>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="text-primary fw-bold fs-5">${formatPrice(product.price)}</span>
+                                    </div>
+                                    <p class="card-text">${product.description.substring(0, 80)}...</p>
+                                </div>
+                                <div class="card-footer bg-white border-0">
+                                    <button class="btn btn-primary w-100" onclick="addToCart(${product.id})">
+                                        <i class="fas fa-cart-plus me-2"></i>Ajouter au panier
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function applyFilters() {
+            const selectedCategories = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+            const maxPrice = document.getElementById('priceRange').value;
+            
+            const filteredProducts = products.filter(product => 
+                selectedCategories.includes(product.category) && product.price <= maxPrice
+            );
+            
+            const productsContainer = document.getElementById('products-grid');
+            productsContainer.innerHTML = '';
+            
+            if (filteredProducts.length === 0) {
+                productsContainer.innerHTML = '<div class="col-12 text-center py-5"><h4>Aucun produit ne correspond aux filtres</h4></div>';
+                return;
+            }
+            
+            filteredProducts.forEach(product => {
+                productsContainer.innerHTML += `
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-card card h-100">
+                            <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                            <div class="card-body">
+                                <h5 class="card-title">${product.name}</h5>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-primary fw-bold fs-5">${formatPrice(product.price)}</span>
+                                </div>
+                                <p class="card-text">${product.description.substring(0, 80)}...</p>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <button class="btn btn-primary w-100" onclick="addToCart(${product.id})">
+                                    <i class="fas fa-cart-plus me-2"></i>Ajouter au panier
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function sortProducts(criteria) {
+            let sortedProducts = [...products];
+            
+            if (criteria === 'name') {
+                sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (criteria === 'price') {
+                sortedProducts.sort((a, b) => a.price - b.price);
+            }
+            
+            const productsContainer = document.getElementById('products-grid');
+            productsContainer.innerHTML = '';
+            
+            sortedProducts.forEach(product => {
+                productsContainer.innerHTML += `
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-card card h-100">
+                            <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                            <div class="card-body">
+                                <h5 class="card-title">${product.name}</h5>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-primary fw-bold fs-5">${formatPrice(product.price)}</span>
+                                </div>
+                                <p class="card-text">${product.description.substring(0, 80)}...</p>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <button class="btn btn-primary w-100" onclick="addToCart(${product.id})">
+                                    <i class="fas fa-cart-plus me-2"></i>Ajouter au panier
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Initialisation des événements
+        document.getElementById('priceRange').addEventListener('input', function() {
+            document.getElementById('priceValue').textContent = formatPrice(this.value);
+        });
+
+        // Initialiser la valeur du range
+        document.getElementById('priceValue').textContent = formatPrice(document.getElementById('priceRange').value);
+    </script>
 </body>
 </html>
