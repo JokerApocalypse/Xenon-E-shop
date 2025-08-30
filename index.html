@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boutique de Ma Tante - Vente d'Ordinateurs, Vêtements et Articles de Confection</title>
+    <title>Xenon-Shop - Vente d'Ordinateurs, Vêtements et Articles de Confection</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles/main.css">
@@ -21,312 +21,664 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Accueil</a>
+                        <a class="nav-link active" href="#" onclick="showSection('home')">Accueil</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
                             Catégories
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Ordinateurs</a></li>
-                            <li><a class="dropdown-item" href="#">Vêtements</a></li>
-                            <li><a class="dropdown-item" href="#">Articles de Confection</a></li>
-                            <li><a class="dropdown-item" href="#">Accessoires</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="showCategory('ordinateurs')">Ordinateurs</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="showCategory('vetements')">Vêtements</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="showCategory('confection')">Articles de Confection</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Nouveautés</a>
+                        <a class="nav-link" href="#" onclick="showSection('products')">Tous les produits</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Promotions</a>
+                        <a class="nav-link" href="#" onclick="showSection('about')">À propos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">À propos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="#" onclick="showSection('contact')">Contact</a>
                     </li>
                 </ul>
                 <div class="d-flex align-items-center">
-                    <a href="#" class="btn btn-outline-dark me-2">
-                        <i class="fas fa-search"></i>
-                    </a>
-                    <a href="#" class="btn btn-outline-dark me-2">
-                        <i class="fas fa-user"></i>
-                    </a>
-                    <a href="#" class="btn btn-primary position-relative">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
-                    </a>
+                    <div class="input-group me-3 d-none d-md-flex">
+                        <input type="text" class="form-control form-control-sm" placeholder="Rechercher..." id="searchInput">
+                        <button class="btn btn-outline-primary" onclick="performSearch()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-outline-primary position-relative" onclick="showSection('cart')">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartCount">0</span>
+                        </button>
+                        <button class="btn btn-outline-primary" onclick="showSection('account')">
+                            <i class="fas fa-user"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-section text-center">
-        <div class="container">
-            <h1 class="display-4 fw-bold mb-4">Boutique en Ligne de Qualité</h1>
-            <p class="lead mb-4">Découvrez nos produits informatiques, vêtements et articles de confection</p>
-            <a href="#products" class="btn btn-primary btn-lg px-5 py-3">Voir les produits <i class="fas fa-arrow-right ms-2"></i></a>
-        </div>
-    </section>
-
-    <!-- Categories Section -->
-    <section class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5 fw-bold">Catégories Populaires</h2>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="category-card card h-100 text-center">
-                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Ordinateurs">
-                        <div class="card-body">
-                            <h5 class="card-title">Ordinateurs</h5>
-                            <p class="card-text">Des ordinateurs portables et de bureau performants</p>
-                            <a href="#" class="btn btn-outline-primary">Explorer</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="category-card card h-100 text-center">
-                        <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Vêtements">
-                        <div class="card-body">
-                            <h5 class="card-title">Vêtements</h5>
-                            <p class="card-text">Des vêtements tendance pour toute la famille</p>
-                            <a href="#" class="btn btn-outline-primary">Explorer</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="category-card card h-100 text-center">
-                        <img src="https://images.unsplash.com/photo-1506629905877-52a5ca6d63b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Confection">
-                        <div class="card-body">
-                            <h5 class="card-title">Articles de Confection</h5>
-                            <p class="card-text">Matériel et fournitures pour vos créations</p>
-                            <a href="#" class="btn btn-outline-primary">Explorer</a>
-                        </div>
-                    </div>
+    <!-- Sections principales -->
+    <div class="container-fluid p-0">
+        <!-- Section Accueil -->
+        <section id="home-section" class="main-section">
+            <div class="hero-section text-center">
+                <div class="container">
+                    <h1 class="display-4 fw-bold mb-4">Boutique en Ligne de Qualité</h1>
+                    <p class="lead mb-4">Découvrez nos produits informatiques, vêtements et articles de confection</p>
+                    <button class="btn btn-primary btn-lg px-5 py-3" onclick="showSection('products')">
+                        Voir les produits <i class="fas fa-arrow-right ms-2"></i>
+                    </button>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Featured Products -->
-    <section id="products" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="section-title fw-bold">Produits Populaires</h2>
-            <div class="row g-4">
-                <!-- Product 1 -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="product-card card h-100">
-                        <span class="badge bg-danger position-absolute m-2">Promo</span>
-                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Ordinateur Portable">
-                        <div class="card-body">
-                            <h5 class="card-title">Ordinateur Portable HP</h5>
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <div>
-                                    <span class="text-danger fw-bold fs-5">450 000 FCFA</span>
-                                    <span class="text-decoration-line-through text-muted ms-2">500 000 FCFA</span>
-                                </div>
-                                <div>
-                                    <small class="text-warning">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </small>
+            <!-- Catégories -->
+            <div class="py-5">
+                <div class="container">
+                    <h2 class="text-center mb-5 fw-bold">Catégories Populaires</h2>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="category-card card h-100 text-center" onclick="showCategory('ordinateurs')">
+                                <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Ordinateurs">
+                                <div class="card-body">
+                                    <h5 class="card-title">Ordinateurs</h5>
+                                    <p class="card-text">Des ordinateurs portables et de bureau performants</p>
+                                    <button class="btn btn-outline-primary">Explorer</button>
                                 </div>
                             </div>
-                            <p class="card-text">Ordinateur portable 15.6", 8GB RAM, 512GB SSD, Intel Core i5</p>
                         </div>
-                        <div class="card-footer bg-white border-0">
-                            <button class="btn btn-primary w-100">Ajouter au panier</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 2 -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="product-card card h-100">
-                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Veste en Cuir">
-                        <div class="card-body">
-                            <h5 class="card-title">Veste en Cuir Premium</h5>
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="text-dark fw-bold fs-5">85 000 FCFA</span>
-                                <div>
-                                    <small class="text-warning">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </small>
+                        <div class="col-md-4">
+                            <div class="category-card card h-100 text-center" onclick="showCategory('vetements')">
+                                <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Vêtements">
+                                <div class="card-body">
+                                    <h5 class="card-title">Vêtements</h5>
+                                    <p class="card-text">Des vêtements tendance pour toute la famille</p>
+                                    <button class="btn btn-outline-primary">Explorer</button>
                                 </div>
                             </div>
-                            <p class="card-text">Veste en cuir véritable pour homme, style motard</p>
                         </div>
-                        <div class="card-footer bg-white border-0">
-                            <button class="btn btn-primary w-100">Ajouter au panier</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 3 -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="product-card card h-100">
-                        <img src="https://images.unsplash.com/photo-1506629905877-52a5ca6d63b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Machine à Coudre">
-                        <div class="card-body">
-                            <h5 class="card-title">Machine à Coudre Professionnelle</h5>
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="text-dark fw-bold fs-5">120 000 FCFA</span>
-                                <div>
-                                    <small class="text-warning">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </small>
+                        <div class="col-md-4">
+                            <div class="category-card card h-100 text-center" onclick="showCategory('confection')">
+                                <img src="https://images.unsplash.com/photo-1506629905877-52a5ca6d63b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Confection">
+                                <div class="card-body">
+                                    <h5 class="card-title">Articles de Confection</h5>
+                                    <p class="card-text">Matériel et fournitures pour vos créations</p>
+                                    <button class="btn btn-outline-primary">Explorer</button>
                                 </div>
                             </div>
-                            <p class="card-text">Machine à coudre avec 32 points programmés, idéale pour la confection</p>
-                        </div>
-                        <div class="card-footer bg-white border-0">
-                            <button class="btn btn-primary w-100">Ajouter au panier</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 4 -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="product-card card h-100">
-                        <span class="badge bg-success position-absolute m-2">Nouveau</span>
-                        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Robe Élégante">
-                        <div class="card-body">
-                            <h5 class="card-title">Robe Élégante Soirée</h5>
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="text-dark fw-bold fs-5">65 000 FCFA</span>
-                                <div>
-                                    <small class="text-warning">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                        <i class="far fa-star"></i>
-                                    </small>
-                                </div>
-                            </div>
-                            <p class="card-text">Robe longue élégante pour occasions spéciales, plusieurs coloris disponibles</p>
-                        </div>
-                        <div class="card-footer bg-white border-0">
-                            <button class="btn btn-primary w-100">Ajouter au panier</button>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="text-center mt-5">
-                <a href="#" class="btn btn-outline-primary px-5">Voir tous les produits</a>
-            </div>
-        </div>
-    </section>
 
-    <!-- Features Section -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row g-4 text-center">
-                <div class="col-md-4">
-                    <div class="p-4">
-                        <i class="fas fa-truck fa-3x text-primary mb-3"></i>
-                        <h4>Livraison Rapide</h4>
-                        <p class="text-muted">Livraison express partout en Côte d'Ivoire sous 24-48h</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="p-4">
-                        <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
-                        <h4>Paiement Sécurisé</h4>
-                        <p class="text-muted">Paiement par carte bancaire, mobile money ou à la livraison</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="p-4">
-                        <i class="fas fa-undo fa-3x text-primary mb-3"></i>
-                        <h4>Retours Gratuits</h4>
-                        <p class="text-muted">14 jours pour changer d'avis et retourner vos articles</p>
+            <!-- Produits populaires -->
+            <div class="py-5 bg-light">
+                <div class="container">
+                    <h2 class="section-title fw-bold">Produits Populaires</h2>
+                    <div class="row g-4" id="featured-products">
+                        <!-- Les produits seront chargés ici -->
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Newsletter -->
-    <section class="py-5 bg-dark text-white">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <h3>Abonnez-vous à notre newsletter</h3>
-                    <p class="text-light">Recevez les dernières nouveautés et offres exclusives</p>
-                </div>
-                <div class="col-md-6">
-                    <div class="d-flex">
-                        <input type="email" class="form-control newsletter-input" placeholder="Votre adresse email">
-                        <button class="btn btn-primary newsletter-btn">S'abonner</button>
+        <!-- Section Produits -->
+        <section id="products-section" class="main-section d-none">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- Filtres -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>Filtres</h5>
+                            </div>
+                            <div class="card-body">
+                                <h6>Catégories</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="ordinateurs" id="filter-computers">
+                                    <label class="form-check-label" for="filter-computers">Ordinateurs</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="vetements" id="filter-clothes">
+                                    <label class="form-check-label" for="filter-clothes">Vêtements</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="confection" id="filter-sewing">
+                                    <label class="form-check-label" for="filter-sewing">Confection</label>
+                                </div>
+                                
+                                <h6 class="mt-3">Prix</h6>
+                                <input type="range" class="form-range" min="0" max="1000000" step="10000" id="priceRange">
+                                <div class="d-flex justify-content-between">
+                                    <span>0 FCFA</span>
+                                    <span id="priceValue">500000 FCFA</span>
+                                </div>
+                                
+                                <button class="btn btn-primary w-100 mt-3" onclick="applyFilters()">Appliquer</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <!-- Produits -->
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3>Tous les produits</h3>
+                            <div class="btn-group">
+                                <button class="btn btn-outline-primary" onclick="sortProducts('name')">
+                                    <i class="fas fa-sort-alpha-down"></i> Nom
+                                </button>
+                                <button class="btn btn-outline-primary" onclick="sortProducts('price')">
+                                    <i class="fas fa-sort-numeric-down"></i> Prix
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row g-4" id="products-grid">
+                            <!-- Les produits seront chargés ici -->
+                        </div>
+                        <nav aria-label="Page navigation" class="mt-4">
+                            <ul class="pagination justify-content-center" id="pagination">
+                                <!-- Pagination sera générée ici -->
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Section Panier -->
+        <section id="cart-section" class="main-section d-none">
+            <div class="container py-5">
+                <h2 class="mb-4">Votre Panier</h2>
+                <div id="cart-empty" class="text-center py-5">
+                    <i class="fas fa-shopping-cart fa-4x text-muted mb-3"></i>
+                    <h4>Votre panier est vide</h4>
+                    <p>Ajoutez des produits pour commencer vos achats</p>
+                    <button class="btn btn-primary" onclick="showSection('products')">Voir les produits</button>
+                </div>
+                <div id="cart-content" class="d-none">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div id="cart-items">
+                                        <!-- Articles du panier -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Récapitulatif</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Sous-total:</span>
+                                        <span id="cart-subtotal">0 FCFA</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Livraison:</span>
+                                        <span id="cart-shipping">5000 FCFA</span>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <strong>Total:</strong>
+                                        <strong id="cart-total">5000 FCFA</strong>
+                                    </div>
+                                    <button class="btn btn-primary w-100" onclick="showSection('checkout')">
+                                        Commander maintenant
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Checkout/Paiement -->
+        <section id="checkout-section" class="main-section d-none">
+            <div class="container py-5">
+                <h2 class="mb-4">Finaliser votre commande</h2>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>Informations de livraison</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="delivery-form">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Prénom</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Nom</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Téléphone</label>
+                                        <input type="tel" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Adresse</label>
+                                        <textarea class="form-control" rows="3" required></textarea>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Ville</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Code postal</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Méthode de paiement</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="payment-methods">
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="radio" name="paymentMethod" value="orange" id="payment-orange" checked>
+                                        <label class="form-check-label" for="payment-orange">
+                                            <i class="fas fa-mobile-alt text-warning me-2"></i> Orange Money
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="radio" name="paymentMethod" value="mtn" id="payment-mtn">
+                                        <label class="form-check-label" for="payment-mtn">
+                                            <i class="fas fa-mobile-alt text-yellow me-2"></i> MTN Mobile Money
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="radio" name="paymentMethod" value="card" id="payment-card">
+                                        <label class="form-check-label" for="payment-card">
+                                            <i class="fas fa-credit-card text-primary me-2"></i> Carte bancaire
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="paymentMethod" value="cash" id="payment-cash">
+                                        <label class="form-check-label" for="payment-cash">
+                                            <i class="fas fa-money-bill-wave text-success me-2"></i> Paiement à la livraison
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Votre commande</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="checkout-summary">
+                                    <!-- Récapitulatif de la commande -->
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <strong>Total:</strong>
+                                    <strong id="checkout-total">0 FCFA</strong>
+                                </div>
+                                <button class="btn btn-primary w-100" onclick="processPayment()">
+                                    Payer maintenant
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Compte Utilisateur -->
+        <section id="account-section" class="main-section d-none">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <div class="avatar mb-3">
+                                    <i class="fas fa-user-circle fa-4x text-primary"></i>
+                                </div>
+                                <h4 id="user-name">Invité</h4>
+                                <p id="user-email" class="text-muted">Non connecté</p>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-outline-primary" onclick="showLoginForm()" id="login-btn">
+                                        <i class="fas fa-sign-in-alt me-2"></i>Se connecter
+                                    </button>
+                                    <button class="btn btn-outline-secondary" onclick="showRegisterForm()" id="register-btn">
+                                        <i class="fas fa-user-plus me-2"></i>Créer un compte
+                                    </button>
+                                    <button class="btn btn-outline-danger d-none" onclick="logout()" id="logout-btn">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <!-- Formulaire de connexion -->
+                        <div class="card mb-4" id="login-form">
+                            <div class="card-header">
+                                <h5>Connexion</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="loginForm">
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Mot de passe</label>
+                                        <input type="password" class="form-control" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-sign-in-alt me-2"></i>Se connecter
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Formulaire d'inscription -->
+                        <div class="card mb-4 d-none" id="register-form">
+                            <div class="card-header">
+                                <h5>Créer un compte</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="registerForm">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Prénom</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Nom</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Mot de passe</label>
+                                        <input type="password" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Confirmer le mot de passe</label>
+                                        <input type="password" class="form-control" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-user-plus me-2"></i>Créer le compte
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Profil utilisateur -->
+                        <div class="card d-none" id="user-profile">
+                            <div class="card-header">
+                                <h5>Mon profil</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="profileForm">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Prénom</label>
+                                                <input type="text" class="form-control" id="profile-firstname">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Nom</label>
+                                                <input type="text" class="form-control" id="profile-lastname">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="profile-email" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Téléphone</label>
+                                        <input type="tel" class="form-control" id="profile-phone">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Adresse</label>
+                                        <textarea class="form-control" id="profile-address" rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-2"></i>Enregistrer
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Commandes de l'utilisateur -->
+                        <div class="card mt-4 d-none" id="user-orders">
+                            <div class="card-header">
+                                <h5>Mes commandes</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="orders-list">
+                                    <p class="text-muted">Aucune commande pour le moment</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Contact -->
+        <section id="contact-section" class="main-section d-none">
+            <div class="container py-5">
+                <h2 class="text-center mb-5">Contactez-nous</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Informations de contact</h5>
+                                <div class="contact-info">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="fas fa-map-marker-alt text-primary me-3"></i>
+                                        <span>Abidjan, Plateau, Côte d'Ivoire</span>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="fas fa-phone text-primary me-3"></i>
+                                        <span>+225 07 07 07 07 07</span>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="fas fa-envelope text-primary me-3"></i>
+                                        <span>contact@boutiquetante.ci</span>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="fas fa-clock text-primary me-3"></i>
+                                        <span>Lun-Sam: 8h-19h</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Envoyez-nous un message</h5>
+                                <form id="contactForm">
+                                    <div class="mb-3">
+                                        <label class="form-label">Nom complet</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Sujet</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Message</label>
+                                        <textarea class="form-control" rows="5" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-paper-plane me-2"></i>Envoyer
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section À propos -->
+        <section id="about-section" class="main-section d-none">
+            <div class="container py-5">
+                <h2 class="text-center mb-5">À propos de BoutiqueTante</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Notre histoire</h4>
+                        <p>BoutiqueTante est née de la passion pour offrir des produits de qualité à des prix accessibles. Spécialisée dans les ordinateurs, vêtements et articles de confection, notre boutique s'engage à vous offrir le meilleur service.</p>
+                        <h4 class="mt-4">Notre mission</h4>
+                        <p>Proposer des produits de qualité avec un service client exceptionnel. Nous croyons que chaque client mérite la meilleure expérience d'achat possible.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Nos valeurs</h4>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <i class="fas fa-check-circle text-success me-2"></i> Qualité des produits
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-check-circle text-success me-2"></i> Service client exceptionnel
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-check-circle text-success me-2"></i> Prix compétitifs
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-check-circle text-success me-2"></i> Livraison rapide
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-check-circle text-success me-2"></i> Satisfaction garantie
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <!-- Footer -->
-    <footer>
+    <footer class="bg-dark text-white py-5 mt-5">
         <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4">
-                    <h5 class="mb-4">À propos de BoutiqueTante</h5>
-                    <p>Votre boutique en ligne de confiance pour l'informatique, les vêtements et les articles de confection en Côte d'Ivoire.</p>
-                    <div class="mt-3">
-                        <a href="#" class="text-white me-2"><i class="fab fa-facebook-f fa-lg"></i></a>
-                        <a href="#" class="text-white me-2"><i class="fab fa-instagram fa-lg"></i></a>
-                        <a href="#" class="text-white me-2"><i class="fab fa-twitter fa-lg"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-whatsapp fa-lg"></i></a>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>BoutiqueTante</h5>
+                    <p>Votre boutique en ligne de confiance pour tous vos besoins.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4">
-                    <h5 class="mb-4">Informations</h5>
+                <div class="col-md-2">
+                    <h6>Informations</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">À propos de nous</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Contact</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Conditions d'utilisation</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Politique de confidentialité</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">À propos</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Mentions légales</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-2 col-md-4">
-                    <h5 class="mb-4">Service Client</h5>
+                <div class="col-md-2">
+                    <h6>Service Client</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">FAQ</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Livraison & Retours</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Guide des tailles</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Support</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">FAQ</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Livraison</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Retours</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-4 col-md-4">
-                    <h5 class="mb-4">Coordonnées</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Abidjan, Plateau</li>
-                        <li class="mb-2"><i class="fas fa-phone me-2"></i> +225 07 07 07 07 07</li>
-                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> contact@boutiquetante.ci</li>
-                        <li class="mb-2"><i class="fas fa-clock me-2"></i> Lun-Sam: 8h-19h</li>
-                    </ul>
+                <div class="col-md-4">
+                    <h6>Newsletter</h6>
+                    <p>Inscrivez-vous pour recevoir nos offres spéciales</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Votre email">
+                        <button class="btn btn-primary">S'inscrire</button>
+                    </div>
                 </div>
             </div>
-            <hr class="mt-4 mb-4">
+            <hr>
             <div class="text-center">
-                <p>&copy; 2023 BoutiqueTante - Tous droits réservés</p>
+                <p>&copy; 2023 BoutiqueTante. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
+
+    <!-- Modals -->
+    <div class="modal fade" id="productModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalTitle">Détails du produit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="" class="img-fluid" id="productModalImage" alt="">
+                        </div>
+                        <div class="col-md-6">
+                            <h3 id="productModalName"></h3>
+                            <p class="text-muted" id="productModalCategory"></p>
+                            <h4 class="text-primary" id="productModalPrice"></h4>
+                            <p id="productModalDescription"></p>
+                            <div class="d-flex align-items-center mb-3">
+                                <span class="me-3">Quantité:</span>
+                                <div class="input-group" style="width: 120px;">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="decreaseQuantity()">-</button>
+                                    <input type="number" class="form-control text-center" value="1" min="1" id="productQuantity">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="increaseQuantity()">+</button>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="addToCartFromModal()">
+                                <i class="fas fa-cart-plus me-2"></i>Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="scripts/main.js"></script>
