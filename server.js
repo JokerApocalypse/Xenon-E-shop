@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Connexion à MongoDB
+// Modifiez la connexion MongoDB dans server.js
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/boutique-tante', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
